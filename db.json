@@ -1,0 +1,54 @@
+{
+  "itens": [
+    {
+      "id": "1",
+      "nomeDoItem": "Notebook Dell Latitude",
+      "modelo": "Latitude 5420",
+      "marca": "Dell",
+      "numeroDeTombamento": "NTB-00123",
+      "status": "Em uso",
+      "funcionarioId": 1
+    },
+    {
+      "id": "2",
+      "nomeDoItem": "Monitor LG UltraWide",
+      "modelo": "29WL500",
+      "marca": "LG",
+      "numeroDeTombamento": "MON-00456",
+      "status": "Livre",
+      "funcionarioId": null
+    },
+    {
+      "id": "3",
+      "nomeDoItem": "Teclado Mecânico Redragon",
+      "modelo": "Kumara K552",
+      "marca": "Redragon",
+      "numeroDeTombamento": "PER-00789",
+      "status": "Manutenção",
+      "funcionarioId": null
+    },
+    {
+      "id": "4",
+      "nomeDoItem": "Notebook Apple MacBook Pro",
+      "modelo": "M2 Pro 14\"",
+      "marca": "Apple",
+      "numeroDeTombamento": "NTB-00124",
+      "status": "Livre",
+      "funcionarioId": null
+    }
+  ],
+  "funcionarios": [
+    {
+      "id": "1",
+      "nome": "Carlos Pereira",
+      "dataNascimento": "1990-05-15",
+      "cpf": "111.222.333-44"
+    },
+    {
+      "id": "2",
+      "nome": "Ana Souza",
+      "dataNascimento": "1995-11-20",
+      "cpf": "555.666.777-88"
+    }
+  ]
+}

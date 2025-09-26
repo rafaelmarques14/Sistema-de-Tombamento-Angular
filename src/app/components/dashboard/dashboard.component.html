@@ -1,0 +1,30 @@
+<div class="dashboard-cards">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>{{ totalItens }}</mat-card-title>
+      <mat-card-subtitle>Total de Itens</mat-card-subtitle>
+    </mat-card-header>
+    <mat-icon class="card-icon">inventory_2</mat-icon>
+  </mat-card>
+  <mat-card class="card-livre">
+    <mat-card-header>
+      <mat-card-title>{{ totalLivre }}</mat-card-title>
+      <mat-card-subtitle>Disponíveis</mat-card-subtitle>
+    </mat-card-header>
+     <mat-icon class="card-icon">check_circle</mat-icon>
+  </mat-card>
+  <mat-card class="card-em-uso">
+    <mat-card-header>
+      <mat-card-title>{{ totalEmUso }}</mat-card-title>
+      <mat-card-subtitle>Em Uso</mat-card-subtitle>
+    </mat-card-header>
+    <mat-icon class="card-icon">person_pin</mat-icon>
+  </mat-card>
+  <mat-card class="card-manutencao">
+    <mat-card-header>
+      <mat-card-title>{{ totalManutencao }}</mat-card-title>
+      <mat-card-subtitle>Em Manutenção</mat-card-subtitle>
+    </mat-card-header>
+     <mat-icon class="card-icon">build</mat-icon>
+  </mat-card>
+</div>

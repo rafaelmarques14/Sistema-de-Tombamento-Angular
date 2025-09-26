@@ -1,0 +1,23 @@
+.dashboard-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  padding: 20px 0;
+}
+mat-card {
+  position: relative;
+  overflow: hidden;
+}
+.card-icon {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 48px;
+  width: 48px;
+  height: 48px;
+  color: rgba(0,0,0,0.15);
+}
+.card-livre { background-color: #e8f5e9; }
+.card-em-uso { background-color: #e3f2fd; }
+.card-manutencao { background-color: #fff3e0; }

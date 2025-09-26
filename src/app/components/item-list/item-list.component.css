@@ -1,0 +1,52 @@
+.table-container {
+  margin-top: 20px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.item-cell {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.item-cell div {
+  display: flex;
+  flex-direction: column;
+}
+
+.item-cell small {
+  font-size: 0.8em;
+  color: #666;
+}
+
+.status-livre {
+  background-color: #4caf50 !important; 
+  color: white !important;
+}
+
+.status-em-uso {
+  background-color: #2196f3 !important; 
+  color: white !important;
+}
+
+.status-manutencao {
+  background-color: #ff9800 !important; 
+  color: white !important;
+}
+
+mat-chip {
+  padding: 4px 12px !important;
+  border-radius: 16px !important;
+}
+
+.maintenance-text {
+  font-style: italic;
+  color: #777;
+}
+
+th.mat-header-cell {
+  font-weight: bold;
+  font-size: 13px;
+  color: rgba(0,0,0,.64);
+}
