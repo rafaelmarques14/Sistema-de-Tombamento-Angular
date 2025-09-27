@@ -61,15 +61,15 @@ export class FuncionarioDialogComponent implements OnInit {
         this.dialogRef.close(true); 
       });
     } else {
-      // Modo de Criação: chama o serviço de add
+      
       this.dataService.addFuncionario(formData).subscribe(() => {
-        this.dialogRef.close(true); // Fecha o diálogo e sinaliza que houve sucesso
+        this.dialogRef.close(true); 
       });
     }
   }
 
   cancel(): void {
-    this.dialogRef.close(); // Apenas fecha o diálogo sem sinalizar sucesso
+    this.dialogRef.close(); 
   }
 }
 

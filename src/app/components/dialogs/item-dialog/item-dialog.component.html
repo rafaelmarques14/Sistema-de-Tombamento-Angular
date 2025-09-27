@@ -1,0 +1,40 @@
+<h2 mat-dialog-title>{{ isEditMode ? 'Editar Item' : 'Novo Item' }}</h2>
+<mat-dialog-content>
+  <form [formGroup]="form" class="dialog-form">
+    <mat-form-field appearance="outline">
+      <mat-label>Nome do Item</mat-label>
+      <input matInput formControlName="nomeDoItem" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Marca</mat-label>
+      <input matInput formControlName="marca" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Modelo</mat-label>
+      <input matInput formControlName="modelo" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Nº de Tombamento</mat-label>
+      <input matInput formControlName="numeroDeTombamento" required>
+    </mat-form-field>
+    
+    <mat-form-field appearance="outline">
+      <mat-label>Status</mat-label>
+      <mat-select formControlName="status" required>
+        <mat-option *ngFor="let status of statuses" [value]="status">
+          {{status}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="cancel()">Cancelar</button>
+  <button mat-flat-button color="primary" [disabled]="form.invalid" (click)="save()">
+    {{ isEditMode ? 'Salvar Alterações' : 'Criar Item' }}
+  </button>
+</mat-dialog-actions>

@@ -6,8 +6,8 @@
       "modelo": "Latitude 5420",
       "marca": "Dell",
       "numeroDeTombamento": "NTB-00123",
-      "status": "Em uso",
-      "funcionarioId": 1
+      "status": "Livre",
+      "funcionarioId": null
     },
     {
       "id": "2",
@@ -24,7 +24,7 @@
       "modelo": "Kumara K552",
       "marca": "Redragon",
       "numeroDeTombamento": "PER-00789",
-      "status": "Manutenção",
+      "status": "Livre",
       "funcionarioId": null
     },
     {
@@ -35,20 +35,29 @@
       "numeroDeTombamento": "NTB-00124",
       "status": "Livre",
       "funcionarioId": null
+    },
+    {
+      "id": "eecc",
+      "nomeDoItem": "Mouse",
+      "marca": "Longitech",
+      "modelo": "Wifi",
+      "numeroDeTombamento": "MOU-0023",
+      "status": "Livre",
+      "funcionarioId": null
     }
   ],
   "funcionarios": [
     {
       "id": "1",
       "nome": "Carlos Pereira",
-      "dataNascimento": "1990-05-15",
-      "cpf": "111.222.333-44"
+      "cpf": "111.222.333-44",
+      "dataNascimento": "1990-05-15T03:00:00.000Z"
     },
     {
       "id": "2",
       "nome": "Ana Souza",
-      "dataNascimento": "1995-11-20",
-      "cpf": "555.666.777-88"
+      "cpf": "555.666.777-88",
+      "dataNascimento": "1995-11-20T00:00:00.000Z"
     }
   ]
 }

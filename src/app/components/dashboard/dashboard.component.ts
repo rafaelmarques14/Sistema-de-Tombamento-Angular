@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
-
 import { DataService } from '../../services/data.service';
 import { Item } from '../../models/item.model';
 
@@ -27,10 +26,14 @@ export class DashboardComponent implements OnInit {
   constructor(private dataService: DataService) { }
 
   ngOnInit(): void {
-    this.dataService.getItens().subscribe(data => {
+
+    this.dataService.getItensState().subscribe(data => {
       this.itens = data;
       this.calculateStats();
     });
+
+
+    this.dataService.fetchAndNotifyItens().subscribe();
   }
 
   calculateStats(): void {

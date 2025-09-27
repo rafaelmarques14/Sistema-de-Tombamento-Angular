@@ -50,3 +50,18 @@ th.mat-header-cell {
   font-size: 13px;
   color: rgba(0,0,0,.64);
 }
+
+.header { 
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+.actions-cell {
+  text-align: right;
+  white-space: nowrap;
+}
+.text-right {
+  text-align: right;
+}
