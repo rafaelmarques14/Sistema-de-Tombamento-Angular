@@ -29,12 +29,22 @@
         </mat-option>
       </mat-select>
     </mat-form-field>
+
+    <mat-form-field *ngIf="form.get('status')?.value === 'Em uso'" appearance="outline">
+      <mat-label>Atribuir para</mat-label>
+      <mat-select formControlName="funcionarioId" required>
+        <mat-option *ngFor="let func of funcionarios" [value]="func.id">
+          {{ func.nome }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
   </form>
 </mat-dialog-content>
 
 <mat-dialog-actions align="end">
-  <button mat-button (click)="cancel()">Cancelar</button>
   <button mat-flat-button color="primary" [disabled]="form.invalid" (click)="save()">
     {{ isEditMode ? 'Salvar Alterações' : 'Criar Item' }}
   </button>
+  <button mat-button (click)="cancel()">Cancelar</button>
 </mat-dialog-actions>
+

@@ -44,6 +44,15 @@
       "numeroDeTombamento": "MOU-0023",
       "status": "Livre",
       "funcionarioId": null
+    },
+    {
+      "id": "a235",
+      "nomeDoItem": "Monitor AOC 4K",
+      "marca": "AOC",
+      "modelo": "AOC 4K",
+      "numeroDeTombamento": "213234",
+      "status": "Livre",
+      "funcionarioId": null
     }
   ],
   "funcionarios": [

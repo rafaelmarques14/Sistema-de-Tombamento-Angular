@@ -5,11 +5,12 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
 import { DataService } from '../../services/data.service';
 import { Item } from '../../models/item.model';
 import { Funcionario } from '../../models/funcionario.model';
 import { ItemDialogComponent } from '../dialogs/item-dialog/item-dialog.component';
-import { AtribuirDialogComponent } from '../dialogs/atribuir-dialog/atribuir-dialog.component';
 
 @Component({
   selector: 'app-item-list',
@@ -21,8 +22,9 @@ import { AtribuirDialogComponent } from '../dialogs/atribuir-dialog/atribuir-dia
     MatChipsModule,
     MatButtonModule,
     MatDialogModule,
+    MatFormFieldModule,
+    MatSelectModule,
     ItemDialogComponent,
-    AtribuirDialogComponent
   ],
   templateUrl: './item-list.component.html',
   styleUrls: ['./item-list.component.css']
@@ -39,12 +41,10 @@ export class ItemListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    
     this.dataService.getItensState().subscribe(dataItens => {
       this.itens = dataItens;
     });
 
-   
     this.dataService.getFuncionarios().subscribe(data => {
       this.funcionarios = data;
       this.funcionarios.forEach(f => this.funcionarioMap.set(f.id, f.nome));
@@ -54,14 +54,14 @@ export class ItemListComponent implements OnInit {
   openItemDialog(item?: Item): void {
     const dialogRef = this.dialog.open(ItemDialogComponent, {
       width: '450px',
-      data: item ? { ...item } : null
+      data: { 
+        item: item ? { ...item } : null, 
+        funcionarios: this.funcionarios 
+      }
     });
 
- 
     dialogRef.afterClosed().subscribe(result => {
-
       if (result) {
-
         console.log('Diálogo de item fechado com sucesso.');
       }
     });
@@ -72,20 +72,13 @@ export class ItemListComponent implements OnInit {
       this.dataService.deleteItem(item.id).subscribe();
     }
   }
-  
-  atribuirItem(item: Item): void {
-    const dialogRef = this.dialog.open(AtribuirDialogComponent, {
-      width: '400px',
-      data: { item: item, funcionarios: this.funcionarios }
-    });
 
-    dialogRef.afterClosed().subscribe(funcionarioId => {
-      if (funcionarioId) {
-        this.dataService.atribuirItem(item.id, funcionarioId).subscribe();
-      }
-    });
+  onFuncionarioSelect(item: Item, funcionarioId: number | null): void {
+    if (funcionarioId) {
+      this.dataService.atribuirItem(item.id, funcionarioId).subscribe();
+    }
   }
-
+  
   desatribuirItem(item: Item): void {
     if (confirm(`Tem certeza que deseja desatribuir "${item.nomeDoItem}"?`)) {
       this.dataService.desatribuirItem(item.id).subscribe();
@@ -104,4 +97,14 @@ export class ItemListComponent implements OnInit {
       default: return '';
     }
   }
+
+  getStatusIcon(status: string): string {
+    switch (status) {
+      case 'Livre': return 'check_circle';
+      case 'Em uso': return 'person_pin';
+      case 'Manutenção': return 'build';
+      default: return '';
+    }
+  }
 }
+
