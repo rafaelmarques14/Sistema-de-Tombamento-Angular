@@ -7,12 +7,13 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ItemListComponent } from './components/item-list/item-list.component';
 import { FuncionarioListComponent } from "./components/funcionario-list/funcionario-list.component";
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, CommonModule, MatToolbarModule,
+  imports: [RouterOutlet, CommonModule, MatToolbarModule, RouterModule,
     MatIconModule, MatTabsModule, DashboardComponent, ItemListComponent, FuncionarioListComponent],
-  templateUrl: './app.html',
+    template: '<router-outlet></router-outlet>',
   styleUrl: './app.scss'
 })
 export class App {

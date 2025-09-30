@@ -1,0 +1,23 @@
+<mat-toolbar color="primary">
+  <mat-icon>inventory</mat-icon>
+  <span class="title">TombaRAS - Sistema de Tombamento e Patrimônio </span>
+  <span class="toolbar-spacer"></span>
+  <button mat-icon-button (click)="logout()" title="Sair">
+    <mat-icon>logout</mat-icon>
+  </button>
+</mat-toolbar>
+
+<div class="container">
+  <nav mat-tab-nav-bar [tabPanel]="tabPanel">
+    <a mat-tab-link *ngFor="let link of navLinks"
+       [routerLink]="link.path"
+       routerLinkActive #rla="routerLinkActive"
+       [active]="rla.isActive">
+       <mat-icon class="tab-icon">{{link.icon}}</mat-icon>
+      {{link.label}}
+    </a>
+  </nav>
+  <mat-tab-nav-panel #tabPanel>
+    <router-outlet></router-outlet>
+  </mat-tab-nav-panel>
+</div>

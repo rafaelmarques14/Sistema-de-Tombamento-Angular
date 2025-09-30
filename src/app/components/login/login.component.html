@@ -1,0 +1,36 @@
+<div class="login-container">
+  <mat-card class="login-card">
+    <mat-card-header class="login-header">
+      <div class="logo">
+        <img src="../../../assets/TombaRAS_logo-preto.png" alt="TombaRAS" class="logo-image">
+      </div>
+    </mat-card-header>
+    <mat-card-content>
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="outline">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email" type="email" required>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Senha</mat-label>
+          <input matInput formControlName="password" type="password" required>
+        </mat-form-field>
+        <div *ngIf="loginError" class="error-message">
+          <mat-icon>error_outline</mat-icon>
+          <span>Email ou senha inválidos.</span>
+        </div>
+        <button mat-flat-button color="primary" type="submit" [disabled]="loginForm.invalid">
+          Entrar
+        </button>
+      </form>
+    </mat-card-content>
+
+     <mat-card-footer class="login-footer">
+      <div class="footer-content">
+        <span class="version">Versão 1.0.0</span>
+        <span class="developer">Rafael Marques</span>
+      </div>
+    </mat-card-footer>
+
+  </mat-card>
+</div>
