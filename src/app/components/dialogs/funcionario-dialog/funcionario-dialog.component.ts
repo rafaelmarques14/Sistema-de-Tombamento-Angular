@@ -21,7 +21,7 @@ import { DataService } from '../../../services/data.service';
     MatButtonModule,
     MatDatepickerModule],
   providers: [
-    provideNativeDateAdapter() 
+    provideNativeDateAdapter()
   ],
   templateUrl: './funcionario-dialog.component.html',
   styleUrl: './funcionario-dialog.component.scss'
@@ -36,7 +36,7 @@ export class FuncionarioDialogComponent implements OnInit {
     private dialogRef: MatDialogRef<FuncionarioDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Funcionario | null
   ) {
-    this.isEditMode = !!this.data; 
+    this.isEditMode = !!this.data;
   }
 
   ngOnInit(): void {
@@ -49,27 +49,27 @@ export class FuncionarioDialogComponent implements OnInit {
 
   save(): void {
     if (this.form.invalid) {
-      return; 
+      return;
     }
 
     const formData = this.form.value;
 
     if (this.isEditMode && this.data) {
-     
+
       const updatedFuncionario: Funcionario = { id: this.data.id, ...formData };
       this.dataService.updateFuncionario(updatedFuncionario).subscribe(() => {
-        this.dialogRef.close(true); 
+        this.dialogRef.close(true);
       });
     } else {
-      
+
       this.dataService.addFuncionario(formData).subscribe(() => {
-        this.dialogRef.close(true); 
+        this.dialogRef.close(true);
       });
     }
   }
 
   cancel(): void {
-    this.dialogRef.close(); 
+    this.dialogRef.close();
   }
 }
 

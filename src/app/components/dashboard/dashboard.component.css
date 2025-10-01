@@ -1,13 +1,16 @@
-.dashboard-cards {
+.dashboard-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 20px;
-  padding: 20px 0;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  margin-top: 24px;
 }
+
 mat-card {
   position: relative;
   overflow: hidden;
+  border-radius: 12px;
 }
+
 .card-icon {
   position: absolute;
   right: 20px;
@@ -16,8 +19,75 @@ mat-card {
   font-size: 48px;
   width: 48px;
   height: 48px;
-  color: rgba(0,0,0,0.15);
+  color: rgba(0, 0, 0, 0.15);
 }
-.card-livre { background-color: #e8f5e9; }
-.card-em-uso { background-color: #e3f2fd; }
-.card-manutencao { background-color: #fff3e0; }
+
+.card-livre {
+  background-color: #e8f5e9;
+}
+
+.card-em-uso {
+  background-color: #e3f2fd;
+}
+
+.card-manutencao {
+  background-color: #fff3e0;
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 24px;
+}
+
+.summary-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+@media (min-width: 1024px) {
+  .dashboard-grid {
+    grid-template-columns: 2fr 1fr;
+  }
+}
+
+.dashboard-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+
+.summary-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+mat-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.card-icon {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 48px;
+  width: 48px;
+  height: 48px;
+  color: rgba(0, 0, 0, 0.15);
+}
+
+.card-livre {
+  background-color: #a4f6ab;
+}
+
+.card-em-uso {
+  background-color: #a5d6f9;
+}
+
+.card-manutencao {
+  background-color: #edd2a7;
+}

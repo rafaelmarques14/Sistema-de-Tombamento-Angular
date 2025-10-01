@@ -22,7 +22,6 @@ import { AuthService } from '../../services/auth.service';
   styleUrls: ['./main-layout.component.css']
 })
 export class MainLayoutComponent {
-  // Links para as abas, agora controlados pelo router
   navLinks = [
     { path: 'dashboard', label: 'Dashboard', icon: 'dashboard' },
     { path: 'itens', label: 'Itens', icon: 'list_alt' },

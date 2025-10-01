@@ -39,16 +39,7 @@
 
     <ng-container matColumnDef="atribuidoPara">
       <th mat-header-cell *matHeaderCellDef> Atribuir </th>
-      <td mat-cell *matCellDef="let item" class="assigned-cell-container">
-        
-
-        <div *ngIf="item.status === 'Em uso'" class="assigned-view">
-          <span>{{ getFuncionarioNome(item.funcionarioId) }}</span>
-          <button mat-icon-button (click)="desatribuirItem(item)" class="clear-button" title="Desatribuir">
-            <mat-icon>clear</mat-icon>
-          </button>
-        </div>
-
+      <td mat-cell *matCellDef="let item" class="assign-cell">
         <mat-form-field *ngIf="item.status === 'Livre'" appearance="outline" class="assign-select">
           <mat-label>Selecione...</mat-label>
           <mat-select (selectionChange)="onFuncionarioSelect(item, $event.value)">
@@ -58,14 +49,23 @@
           </mat-select>
         </mat-form-field>
 
-        <span *ngIf="item.status === 'Manutenção'">-</span>
+        <!-- Estado Em Uso - Apenas o nome do funcionário -->
+        <span *ngIf="item.status === 'Em uso'" class="assigned-name">
+          {{ getFuncionarioNome(item.funcionarioId) }}
+        </span>
 
+        <span *ngIf="item.status === 'Manutenção'">-</span>
       </td>
     </ng-container>
 
     <ng-container matColumnDef="acoes">
       <th mat-header-cell *matHeaderCellDef class="text-right"> Ações </th>
       <td mat-cell *matCellDef="let item" class="actions-cell">
+        <button *ngIf="item.status === 'Em uso'" mat-icon-button color="warn" (click)="desatribuirItem(item)"
+          title="Desatribuir">
+          <mat-icon>person_remove</mat-icon>
+        </button>
+
         <button mat-icon-button color="primary" (click)="openItemDialog(item)" title="Editar Item">
           <mat-icon>edit</mat-icon>
         </button>
@@ -79,4 +79,3 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
 </div>
-

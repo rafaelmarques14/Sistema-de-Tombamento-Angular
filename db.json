@@ -7,7 +7,8 @@
       "marca": "Dell",
       "numeroDeTombamento": "NTB-00123",
       "status": "Livre",
-      "funcionarioId": null
+      "funcionarioId": null,
+      "historicoIdAtivo": null
     },
     {
       "id": "2",
@@ -16,7 +17,8 @@
       "marca": "LG",
       "numeroDeTombamento": "MON-00456",
       "status": "Livre",
-      "funcionarioId": null
+      "funcionarioId": null,
+      "historicoIdAtivo": null
     },
     {
       "id": "3",
@@ -25,7 +27,8 @@
       "marca": "Redragon",
       "numeroDeTombamento": "PER-00789",
       "status": "Livre",
-      "funcionarioId": null
+      "funcionarioId": null,
+      "historicoIdAtivo": null
     },
     {
       "id": "4",
@@ -34,7 +37,8 @@
       "marca": "Apple",
       "numeroDeTombamento": "NTB-00124",
       "status": "Livre",
-      "funcionarioId": null
+      "funcionarioId": null,
+      "historicoIdAtivo": null
     },
     {
       "id": "eecc",
@@ -43,16 +47,8 @@
       "modelo": "Wifi",
       "numeroDeTombamento": "MOU-0023",
       "status": "Livre",
-      "funcionarioId": null
-    },
-    {
-      "id": "a235",
-      "nomeDoItem": "Monitor AOC 4K",
-      "marca": "AOC",
-      "modelo": "AOC 4K",
-      "numeroDeTombamento": "213234",
-      "status": "Livre",
-      "funcionarioId": null
+      "funcionarioId": null,
+      "historicoIdAtivo": null
     }
   ],
   "funcionarios": [
@@ -71,14 +67,86 @@
   ],
   "users": [
     {
-      "id": 1,
+      "id": "1",
       "email": "admin@tombaras.com",
       "password": "1234"
     },
     {
-      "id": 2,
+      "id": "2",
       "email": "rafael@tombaras.com",
       "password": "1"
+    }
+  ],
+  "historico": [
+    {
+      "id": "5160",
+      "itemId": "1",
+      "funcionarioId": 1,
+      "dataInicio": "2025-10-01T01:44:07.667Z",
+      "dataFim": "2025-10-01T01:44:19.748Z"
+    },
+    {
+      "id": "f68f",
+      "itemId": "4",
+      "funcionarioId": 2,
+      "dataInicio": "2025-10-01T01:44:13.498Z",
+      "dataFim": "2025-10-01T01:44:16.598Z"
+    },
+    {
+      "id": "35eb",
+      "itemId": "eecc",
+      "funcionarioId": 1,
+      "dataInicio": "2025-10-01T01:44:26.899Z",
+      "dataFim": "2025-10-01T01:44:40.343Z"
+    },
+    {
+      "id": "ad6e",
+      "itemId": "1",
+      "funcionarioId": 1,
+      "dataInicio": "2025-10-01T01:44:42.655Z",
+      "dataFim": "2025-10-01T01:45:03.817Z"
+    },
+    {
+      "id": "81d9",
+      "itemId": "2",
+      "funcionarioId": 2,
+      "dataInicio": "2025-10-01T01:44:44.597Z",
+      "dataFim": "2025-10-01T01:45:06.401Z"
+    },
+    {
+      "id": "204b",
+      "itemId": "4",
+      "funcionarioId": 1,
+      "dataInicio": "2025-10-01T01:44:46.928Z",
+      "dataFim": "2025-10-01T01:45:11.916Z"
+    },
+    {
+      "id": "d36b",
+      "itemId": "eecc",
+      "funcionarioId": 2,
+      "dataInicio": "2025-10-01T01:44:48.871Z",
+      "dataFim": "2025-10-02T01:45:18.381Z"
+    },
+    {
+      "id": "fa2c",
+      "itemId": "3",
+      "funcionarioId": 1,
+      "dataInicio": "2025-10-01T01:44:51.036Z",
+      "dataFim": "2025-10-01T01:45:09.200Z"
+    },
+    {
+      "id": "0be6",
+      "itemId": "1",
+      "funcionarioId": "1",
+      "dataInicio": "2025-10-01T22:17:30.511Z",
+      "dataFim": "2025-10-01T22:17:43.744Z"
+    },
+    {
+      "id": "dba9",
+      "itemId": "1",
+      "funcionarioId": "2",
+      "dataInicio": "2025-10-01T22:17:46.823Z",
+      "dataFim": "2025-10-01T22:17:50.030Z"
     }
   ]
 }

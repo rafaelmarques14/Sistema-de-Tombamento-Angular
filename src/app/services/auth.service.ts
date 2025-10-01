@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { User } from '../models/user.model'; // Importa o modelo de utilizador
+import { User } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +13,7 @@ export class AuthService {
   private isLoggedIn$ = new BehaviorSubject<boolean>(this.hasToken());
 
   constructor(
-    private http: HttpClient, // Injeta o HttpClient para fazer chamadas de API
+    private http: HttpClient,
     private router: Router
   ) { }
 
@@ -27,18 +27,18 @@ export class AuthService {
 
 
   login(email: string, password: string): Observable<boolean> {
-    
+
     return this.http.get<User[]>(`${this.apiUrl}/users?email=${email}&password=${password}`).pipe(
       map(users => {
-        
+
         if (users.length > 0) {
           const user = users[0];
 
           localStorage.setItem('authToken', `fake-token-for-user-${user.id}`);
           this.isLoggedIn$.next(true);
-          return true; 
+          return true;
         }
-        return false; 
+        return false;
       })
     );
   }

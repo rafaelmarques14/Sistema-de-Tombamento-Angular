@@ -4,6 +4,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { DataService } from '../../services/data.service';
 import { Item } from '../../models/item.model';
+import { ActivityFeedComponent } from '../activity-feed/activity-feed.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -11,7 +12,8 @@ import { Item } from '../../models/item.model';
   imports: [
     CommonModule,
     MatCardModule,
-    MatIconModule
+    MatIconModule,
+    ActivityFeedComponent
   ],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']

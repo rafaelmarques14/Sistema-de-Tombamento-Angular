@@ -6,4 +6,5 @@ export interface Item {
   numeroDeTombamento: string;
   status: 'Livre' | 'Em uso' | 'Manutenção';
   funcionarioId?: number | null;
+  historicoIdAtivo?: number | null;
 }

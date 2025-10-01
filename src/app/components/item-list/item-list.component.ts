@@ -79,9 +79,9 @@ export class ItemListComponent implements OnInit {
     }
   }
   
-  desatribuirItem(item: Item): void {
+   desatribuirItem(item: Item): void {
     if (confirm(`Tem certeza que deseja desatribuir "${item.nomeDoItem}"?`)) {
-      this.dataService.desatribuirItem(item.id).subscribe();
+      this.dataService.desatribuirItem(item).subscribe();
     }
   }
   
