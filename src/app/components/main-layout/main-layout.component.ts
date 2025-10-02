@@ -25,7 +25,8 @@ export class MainLayoutComponent {
   navLinks = [
     { path: 'dashboard', label: 'Dashboard', icon: 'dashboard' },
     { path: 'itens', label: 'Itens', icon: 'list_alt' },
-    { path: 'funcionarios', label: 'Funcionários', icon: 'people' }
+    { path: 'funcionarios', label: 'Funcionários', icon: 'people' },
+    { path: 'historico', label: 'Histórico', icon: 'history' }
   ];
 
   constructor(private authService: AuthService) {}

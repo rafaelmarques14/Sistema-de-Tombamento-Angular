@@ -35,8 +35,8 @@ export class LoginComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
+      this.loginForm = this.fb.group({
+      user: ['', [Validators.required]],
       password: ['', [Validators.required]],
     });
   }
@@ -46,9 +46,9 @@ export class LoginComponent implements OnInit {
       return;
     }
     this.loginError = false;
-    const { email, password } = this.loginForm.value;
+    const { user, password } = this.loginForm.value;
 
-    this.authService.login(email, password).subscribe(success => {
+    this.authService.login(user, password).subscribe(success => {
       if (success) {
         this.router.navigate(['/app/dashboard']);
       } else {

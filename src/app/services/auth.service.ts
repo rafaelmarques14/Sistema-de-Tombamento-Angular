@@ -26,15 +26,12 @@ export class AuthService {
   }
 
 
-  login(email: string, password: string): Observable<boolean> {
-
-    return this.http.get<User[]>(`${this.apiUrl}/users?email=${email}&password=${password}`).pipe(
+  login(user: string, password: string): Observable<boolean> {
+    return this.http.get<User[]>(`${this.apiUrl}/users?user=${user}&password=${password}`).pipe(
       map(users => {
-
         if (users.length > 0) {
-          const user = users[0];
-
-          localStorage.setItem('authToken', `fake-token-for-user-${user.id}`);
+          const foundUser = users[0];
+          localStorage.setItem('authToken', `fake-token-for-user-${foundUser.id}`);
           this.isLoggedIn$.next(true);
           return true;
         }

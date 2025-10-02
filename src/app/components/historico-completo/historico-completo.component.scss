@@ -1,0 +1,16 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.table-container {
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+th.mat-header-cell {
+  font-weight: bold;
+}
