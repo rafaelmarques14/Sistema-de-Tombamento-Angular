@@ -8,7 +8,6 @@ import { Item } from '../../models/item.model';
 import { Funcionario } from '../../models/funcionario.model';
 import { Historico } from '../../models/historico.model';
 
-// Interface para facilitar a exibição
 export interface AtividadeFormatada {
   texto: string;
   data: string;
@@ -25,7 +24,7 @@ export interface AtividadeFormatada {
 export class ActivityFeedComponent implements OnInit {
   atividades$!: Observable<AtividadeFormatada[]>;
 
-  constructor(private dataService: DataService) { }
+  constructor(private dataService: DataService) {}
 
   ngOnInit(): void {
     this.atividades$ = forkJoin({
@@ -37,25 +36,31 @@ export class ActivityFeedComponent implements OnInit {
         const itemMap = new Map(itens.map(i => [i.id, i.nomeDoItem]));
         const funcMap = new Map(funcionarios.map(f => [f.id, f.nome]));
 
-        return historico.map(h => {
+        const formattedActivities = historico.map(h => {
           const nomeItem = itemMap.get(h.itemId) || 'Item desconhecido';
           const nomeFunc = funcMap.get(h.funcionarioId) || 'Funcionário desconhecido';
-
+          
           if (h.dataFim) {
             return {
               texto: `${nomeItem} foi devolvido por ${nomeFunc}.`,
-              data: h.dataFim,
+              data: h.dataFim, // A data do evento é a data de fim
               icone: 'keyboard_return'
             };
           } else {
             return {
               texto: `${nomeItem} foi atribuído a ${nomeFunc}.`,
-              data: h.dataInicio,
+              data: h.dataInicio, // A data do evento é a data de início
               icone: 'person_add'
             };
           }
         });
+
+        // Ordena as atividades formatadas pela data do evento, da mais recente para a mais antiga.
+        formattedActivities.sort((a, b) => new Date(b.data).getTime() - new Date(a.data).getTime());
+
+        return formattedActivities;
       })
     );
   }
 }
+

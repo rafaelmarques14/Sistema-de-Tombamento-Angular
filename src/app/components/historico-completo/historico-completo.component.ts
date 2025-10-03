@@ -9,6 +9,7 @@ import { Item } from '../../models/item.model';
 import { Funcionario } from '../../models/funcionario.model';
 import { Historico } from '../../models/historico.model';
 
+// Importações para o PDF
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 
@@ -50,6 +51,14 @@ export class HistoricoCompletoComponent implements OnInit {
           dataFim: h.dataFim
         }));
         
+        // ✅ SOLUÇÃO: Ordena os registos pela data do evento mais recente.
+        // Se 'dataFim' existe, usa-a; senão, usa 'dataInicio'.
+        formattedData.sort((a, b) => {
+          const dateA = new Date(a.dataFim || a.dataInicio).getTime();
+          const dateB = new Date(b.dataFim || b.dataInicio).getTime();
+          return dateB - dateA;
+        });
+
         this.rawData = formattedData;
         return formattedData;
       })
@@ -63,9 +72,11 @@ export class HistoricoCompletoComponent implements OnInit {
     doc.setFontSize(16);
     doc.text('Relatório de Histórico de Atividades - TombaRAS', pageWidth / 2, 20, { align: 'center' });
     
+    doc.setFontSize(10);
+    doc.text(`Relatório gerado em: ${new Date().toLocaleDateString('pt-BR')}`, pageWidth / 2, 26, { align: 'center' });
 
     autoTable(doc, {
-      startY: 30, 
+      startY: 32, 
       head: [['Item', 'Atribuído para', 'Data de Início', 'Data de Devolução']],
       body: this.rawData.map(h => [
         h.nomeItem,
@@ -76,7 +87,7 @@ export class HistoricoCompletoComponent implements OnInit {
       theme: 'grid'
     });
 
-    doc.save('relatorio-historico-tombaras.pdf');
+    doc.save('historico-tombaras.pdf');
   }
 }
 

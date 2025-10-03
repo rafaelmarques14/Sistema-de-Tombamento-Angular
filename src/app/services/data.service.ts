@@ -114,9 +114,6 @@ export class DataService {
     return this.http.get<Historico[]>(`${this.apiUrl}/historico?_sort=dataInicio&_order=desc&_limit=5`);
   }
   
-  /**
-   * Busca o histórico completo para a página de relatório.
-   */
   getHistoricoCompleto(): Observable<Historico[]> {
     return this.http.get<Historico[]>(`${this.apiUrl}/historico?_sort=dataInicio&_order=desc`);
   }

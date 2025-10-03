@@ -6,9 +6,9 @@
       "marca": "Dell",
       "modelo": "Latitude",
       "numeroDeTombamento": "DEL-3212",
-      "status": "Livre",
-      "funcionarioId": null,
-      "historicoIdAtivo": null
+      "status": "Em uso",
+      "funcionarioId": "3",
+      "historicoIdAtivo": "2aa4"
     }
   ],
   "funcionarios": [
@@ -46,6 +46,20 @@
       "funcionarioId": "1",
       "dataInicio": "2025-10-02T02:35:42.605Z",
       "dataFim": "2025-10-02T02:36:00.111Z"
+    },
+    {
+      "id": "354d",
+      "itemId": "c584",
+      "funcionarioId": "3",
+      "dataInicio": "2025-10-03T23:34:37.656Z",
+      "dataFim": null
+    },
+    {
+      "id": "2aa4",
+      "itemId": "c584",
+      "funcionarioId": "3",
+      "dataInicio": "2025-10-03T23:34:40.238Z",
+      "dataFim": null
     }
   ],
   "users": [
