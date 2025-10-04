@@ -13,7 +13,10 @@
         </mat-form-field>
         <mat-form-field appearance="outline">
           <mat-label>Senha</mat-label>
-          <input matInput formControlName="password" type="password" required>
+          <input matInput formControlName="password" [type]="hidePassword ? 'password' : 'text'" required>
+          <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Esconder ou mostrar senha'" type="button">
+            <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
         </mat-form-field>
         <div *ngIf="loginError" class="error-message">
           <mat-icon>error_outline</mat-icon>

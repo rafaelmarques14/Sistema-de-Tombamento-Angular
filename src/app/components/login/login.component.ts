@@ -28,6 +28,8 @@ export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
   loginError = false;
 
+  hidePassword = true;
+  
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
