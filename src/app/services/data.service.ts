@@ -88,7 +88,7 @@ export class DataService {
 
 
  getHistoricoRecente(): Observable<Historico[]> {
-    return this.http.get<Historico[]>(`${this.apiUrl}/historico?_sort=dataFim&_order=desc&_limit=5`);
+    return this.http.get<Historico[]>(`${this.apiUrl}/historico?_sort=dataInicio&_order=desc&_limit=30`);
   }
 
   getHistoricoCompleto(): Observable<Historico[]> {

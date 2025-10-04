@@ -6,6 +6,39 @@
   margin-bottom: 20px;
 }
 
+
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap; 
+  gap: 16px;
+  align-items: center;
+  margin-bottom: 24px;
+  background-color: #f9f9f9;
+  padding: 16px;
+  border-radius: 8px;
+  border: 1px solid #eeeeee;
+}
+
+.filter-bar mat-form-field {
+  flex: 1 1 200px; 
+  --mdc-outlined-text-field-container-height: 48px;
+}
+
+
+:host ::ng-deep .filter-bar .mat-mdc-form-field-subscript-wrapper {
+  display: none;
+}
+
+.filter-type-select {
+  flex-grow: 0;
+  flex-basis: 150px; /* Largura fixa para este campo */
+}
+
+.filter-bar button {
+  margin-left: auto; /* Empurra o botão para a extremidade direita */
+  height: 48px;
+}
+
 .table-container {
   border-radius: 8px;
   overflow: hidden;
@@ -14,3 +47,4 @@
 th.mat-header-cell {
   font-weight: bold;
 }
+

@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
@@ -38,6 +39,7 @@ export class HistoricoCompletoComponent implements OnInit, OnDestroy {
   filterForm!: FormGroup;
   private destroy$ = new Subject<void>();
   private dadosAtuaisNaTabela: HistoricoFormatado[] = [];
+  private logoBase64: string | null = null;
 
   datepickerStartView: 'month' | 'year' | 'multi-year' = 'month';
 
@@ -45,7 +47,8 @@ export class HistoricoCompletoComponent implements OnInit, OnDestroy {
 
   constructor(
     private dataService: DataService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private http: HttpClient
   ) { }
 
   ngOnInit(): void {
@@ -56,6 +59,7 @@ export class HistoricoCompletoComponent implements OnInit, OnDestroy {
     });
 
     this.carregarDadosIniciais();
+    this.carregarLogo();
 
     this.filterForm.valueChanges.pipe(takeUntil(this.destroy$)).subscribe(() => {
       this.aplicarFiltros();
@@ -72,6 +76,17 @@ export class HistoricoCompletoComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
+  }
+
+  private carregarLogo(): void {
+    const logoPath = '../../../assets/TombaRAS_logo-preto.png';
+    this.http.get(logoPath, { responseType: 'blob' }).subscribe(blob => {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        this.logoBase64 = reader.result as string;
+      };
+      reader.readAsDataURL(blob);
+    });
   }
 
   private carregarDadosIniciais(): void {
@@ -153,14 +168,18 @@ export class HistoricoCompletoComponent implements OnInit, OnDestroy {
     const doc = new jsPDF();
     const pageWidth = doc.internal.pageSize.getWidth();
     
+    if (this.logoBase64) {
+      doc.addImage(this.logoBase64, 'PNG', 14, 15, 50, 0);
+    }
+    
     doc.setFontSize(16);
-    doc.text('Histórico de Atividades - TombaRAS', pageWidth / 2, 20, { align: 'center' });
+    doc.text('Histórico de Atividades', pageWidth / 2, 35, { align: 'center' });
     
     doc.setFontSize(10);
-
+    
     autoTable(doc, {
-      startY: 32, 
-      head: [['Item', 'Atribuído Para', 'Data de Início', 'Data de Devolução']],
+      startY: 40, 
+      head: [['Item', 'Atribuído para', 'Data de Início', 'Data de Devolução']],
       body: this.dadosAtuaisNaTabela.map(h => [
         h.nomeItem,
         h.nomeFuncionario,
@@ -170,7 +189,7 @@ export class HistoricoCompletoComponent implements OnInit, OnDestroy {
       theme: 'grid'
     });
 
-    doc.save('relatorio-historico-tombaras.pdf');
+    doc.save('historico-tombaras.pdf');
   }
 }
 
