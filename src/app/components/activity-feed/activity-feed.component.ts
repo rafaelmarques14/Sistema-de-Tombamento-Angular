@@ -43,22 +43,21 @@ export class ActivityFeedComponent implements OnInit {
           if (h.dataFim) {
             return {
               texto: `${nomeItem} foi devolvido por ${nomeFunc}.`,
-              data: h.dataFim, // A data do evento é a data de fim
+              data: h.dataFim, 
               icone: 'keyboard_return'
             };
           } else {
             return {
               texto: `${nomeItem} foi atribuído a ${nomeFunc}.`,
-              data: h.dataInicio, // A data do evento é a data de início
+              data: h.dataInicio, 
               icone: 'person_add'
             };
           }
         });
 
-        // Ordena as atividades formatadas pela data do evento, da mais recente para a mais antiga.
         formattedActivities.sort((a, b) => new Date(b.data).getTime() - new Date(a.data).getTime());
 
-        return formattedActivities;
+        return formattedActivities.slice(0, 5);
       })
     );
   }

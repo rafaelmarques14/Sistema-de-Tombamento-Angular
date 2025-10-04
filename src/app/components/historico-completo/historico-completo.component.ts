@@ -1,68 +1,152 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { forkJoin, map, Observable } from 'rxjs';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { MatDatepicker, MatDatepickerModule } from '@angular/material/datepicker';
+import { MatInputModule } from '@angular/material/input';
+import { provideNativeDateAdapter } from '@angular/material/core';
+import { forkJoin, map, Subject, takeUntil, startWith } from 'rxjs';
 import { DataService } from '../../services/data.service';
-import { Item } from '../../models/item.model';
 import { Funcionario } from '../../models/funcionario.model';
-import { Historico } from '../../models/historico.model';
+import { Historico, HistoricoFormatado } from '../../models/historico.model';
 
-// Importações para o PDF
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
-
-export interface HistoricoFormatado {
-  nomeItem: string;
-  nomeFuncionario: string;
-  dataInicio: string;
-  dataFim: string | null;
-}
 
 @Component({
   selector: 'app-historico-completo',
   standalone: true,
-  imports: [CommonModule, MatTableModule, MatButtonModule, MatIconModule],
+  imports: [
+    CommonModule, ReactiveFormsModule, MatTableModule, MatButtonModule,
+    MatIconModule, MatFormFieldModule, MatSelectModule, MatDatepickerModule, MatInputModule
+  ],
+  providers: [provideNativeDateAdapter()],
   templateUrl: './historico-completo.component.html',
   styleUrls: ['./historico-completo.component.scss']
 })
-export class HistoricoCompletoComponent implements OnInit {
+export class HistoricoCompletoComponent implements OnInit, OnDestroy {
   displayedColumns: string[] = ['item', 'funcionario', 'dataInicio', 'dataFim'];
-  historicoCompleto$!: Observable<HistoricoFormatado[]>;
-  private rawData: HistoricoFormatado[] = []; 
+  
+  funcionarios: Funcionario[] = [];
+  private historicoCompleto: HistoricoFormatado[] = [];
+  historicoFiltrado$ = new Subject<HistoricoFormatado[]>();
+  
+  filterForm!: FormGroup;
+  private destroy$ = new Subject<void>();
+  private dadosAtuaisNaTabela: HistoricoFormatado[] = [];
 
-  constructor(private dataService: DataService) { }
+  datepickerStartView: 'month' | 'year' | 'multi-year' = 'month';
+
+  @ViewChild('picker') datepicker!: MatDatepicker<Date>;
+
+  constructor(
+    private dataService: DataService,
+    private fb: FormBuilder
+  ) { }
 
   ngOnInit(): void {
-    this.historicoCompleto$ = forkJoin({
+    this.filterForm = this.fb.group({
+      funcionarioId: [null],
+      filterType: ['day'],
+      data: [null]
+    });
+
+    this.carregarDadosIniciais();
+
+    this.filterForm.valueChanges.pipe(takeUntil(this.destroy$)).subscribe(() => {
+      this.aplicarFiltros();
+    });
+
+    this.filterForm.get('filterType')?.valueChanges.pipe(
+      startWith('day'),
+      takeUntil(this.destroy$)
+    ).subscribe(type => {
+      this.datepickerStartView = (type === 'month' || type === 'year') ? 'multi-year' : 'month';
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
+  private carregarDadosIniciais(): void {
+    forkJoin({
       historico: this.dataService.getHistoricoCompleto(),
       itens: this.dataService.fetchAndNotifyItens(),
       funcionarios: this.dataService.getFuncionarios()
     }).pipe(
       map(({ historico, itens, funcionarios }) => {
+        this.funcionarios = funcionarios;
         const itemMap = new Map(itens.map(i => [i.id, i.nomeDoItem]));
         const funcMap = new Map(funcionarios.map(f => [f.id, f.nome]));
 
         const formattedData = historico.map(h => ({
           nomeItem: itemMap.get(h.itemId) || 'Item desconhecido',
           nomeFuncionario: funcMap.get(h.funcionarioId) || 'Funcionário desconhecido',
+          funcionarioId: h.funcionarioId,
           dataInicio: h.dataInicio,
           dataFim: h.dataFim
         }));
         
-        // ✅ SOLUÇÃO: Ordena os registos pela data do evento mais recente.
-        // Se 'dataFim' existe, usa-a; senão, usa 'dataInicio'.
         formattedData.sort((a, b) => {
           const dateA = new Date(a.dataFim || a.dataInicio).getTime();
           const dateB = new Date(b.dataFim || b.dataInicio).getTime();
           return dateB - dateA;
         });
 
-        this.rawData = formattedData;
         return formattedData;
       })
-    );
+    ).subscribe(data => {
+      this.historicoCompleto = data;
+      this.aplicarFiltros();
+    });
+  }
+
+  private aplicarFiltros(): void {
+    const { funcionarioId, filterType, data } = this.filterForm.value;
+    let dadosFiltrados = [...this.historicoCompleto];
+
+    if (funcionarioId) {
+      dadosFiltrados = dadosFiltrados.filter(h => h.funcionarioId === funcionarioId);
+    }
+
+    if (data) {
+      const dataFiltro = new Date(data);
+      dadosFiltrados = dadosFiltrados.filter(h => {
+        const dataEvento = new Date(h.dataFim || h.dataInicio);
+        switch (filterType) {
+          case 'day': return dataEvento.toDateString() === dataFiltro.toDateString();
+          case 'month': return dataEvento.getMonth() === dataFiltro.getMonth() && dataEvento.getFullYear() === dataFiltro.getFullYear();
+          case 'year': return dataEvento.getFullYear() === dataFiltro.getFullYear();
+          default: return true;
+        }
+      });
+    }
+    this.dadosAtuaisNaTabela = dadosFiltrados;
+    this.historicoFiltrado$.next(dadosFiltrados);
+  }
+
+  monthSelectedHandler(normalizedMonth: Date, datepicker: MatDatepicker<Date>) {
+    if (this.filterForm.get('filterType')?.value === 'month') {
+      this.filterForm.get('data')?.setValue(normalizedMonth);
+      datepicker.close();
+    }
+  }
+
+  yearSelectedHandler(normalizedYear: Date, datepicker: MatDatepicker<Date>) {
+    if (this.filterForm.get('filterType')?.value === 'year') {
+      this.filterForm.get('data')?.setValue(normalizedYear);
+      datepicker.close();
+    }
+  }
+
+  limparFiltros(): void {
+    this.filterForm.reset({ filterType: 'day' });
   }
 
   gerarPDF(): void {
@@ -70,15 +154,14 @@ export class HistoricoCompletoComponent implements OnInit {
     const pageWidth = doc.internal.pageSize.getWidth();
     
     doc.setFontSize(16);
-    doc.text('Relatório de Histórico de Atividades - TombaRAS', pageWidth / 2, 20, { align: 'center' });
+    doc.text('Histórico de Atividades - TombaRAS', pageWidth / 2, 20, { align: 'center' });
     
     doc.setFontSize(10);
-    doc.text(`Relatório gerado em: ${new Date().toLocaleDateString('pt-BR')}`, pageWidth / 2, 26, { align: 'center' });
 
     autoTable(doc, {
       startY: 32, 
-      head: [['Item', 'Atribuído para', 'Data de Início', 'Data de Devolução']],
-      body: this.rawData.map(h => [
+      head: [['Item', 'Atribuído Para', 'Data de Início', 'Data de Devolução']],
+      body: this.dadosAtuaisNaTabela.map(h => [
         h.nomeItem,
         h.nomeFuncionario,
         new Date(h.dataInicio).toLocaleDateString('pt-BR'),
@@ -87,7 +170,7 @@ export class HistoricoCompletoComponent implements OnInit {
       theme: 'grid'
     });
 
-    doc.save('historico-tombaras.pdf');
+    doc.save('relatorio-historico-tombaras.pdf');
   }
 }
 

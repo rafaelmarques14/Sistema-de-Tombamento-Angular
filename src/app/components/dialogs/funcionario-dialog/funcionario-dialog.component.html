@@ -8,7 +8,7 @@
 
     <mat-form-field appearance="outline">
       <mat-label>CPF</mat-label>
-      <input matInput formControlName="cpf" required>
+      <input matInput formControlName="cpf" required mask="000.000.000-00">
     </mat-form-field>
 
     <mat-form-field appearance="outline">
@@ -26,3 +26,4 @@
   </button>
   <button mat-button (click)="cancel()">Cancelar</button>
 </mat-dialog-actions>
+

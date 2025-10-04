@@ -49,7 +49,6 @@
           </mat-select>
         </mat-form-field>
 
-        <!-- Estado Em Uso - Apenas o nome do funcionário -->
         <span *ngIf="item.status === 'Em uso'" class="assigned-name">
           {{ getFuncionarioNome(item.funcionarioId) }}
         </span>

@@ -7,6 +7,7 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { DataService } from '../../services/data.service';
 import { Funcionario } from '../../models/funcionario.model';
 import { FuncionarioDialogComponent } from '../dialogs/funcionario-dialog/funcionario-dialog.component';
+import { NgxMaskPipe } from 'ngx-mask';
 
 @Component({
   selector: 'app-funcionario-list',
@@ -17,8 +18,8 @@ import { FuncionarioDialogComponent } from '../dialogs/funcionario-dialog/funcio
     MatButtonModule,
     MatIconModule,
     MatDialogModule,
-    FuncionarioDialogComponent
-  ],
+    NgxMaskPipe
+],
   templateUrl: './funcionario-list.component.html',
   styleUrls: ['./funcionario-list.component.scss']
 })
@@ -42,26 +43,24 @@ export class FuncionarioListComponent implements OnInit {
   }
 
   openDialog(funcionario?: Funcionario): void {
-    
     const dialogRef = this.dialog.open(FuncionarioDialogComponent, {
       width: '400px',
-      data: funcionario ? { ...funcionario } : null 
+      data: funcionario ? { ...funcionario } : null
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      
       if (result) {
         this.loadFuncionarios();
       }
     });
-    
   }
 
   deleteFuncionario(id: number): void {
     if (confirm('Tem certeza que deseja excluir este funcionário?')) {
       this.dataService.deleteFuncionario(id).subscribe(() => {
-        this.loadFuncionarios(); 
+        this.loadFuncionarios();
       });
     }
   }
 }
+

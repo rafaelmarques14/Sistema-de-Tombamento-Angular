@@ -6,3 +6,11 @@ export interface Historico {
   dataFim: string | null;
 }
 
+export interface HistoricoFormatado {
+  nomeItem: string;
+  nomeFuncionario: string;
+  funcionarioId: number;
+  dataInicio: string;
+  dataFim: string | null;
+}
+

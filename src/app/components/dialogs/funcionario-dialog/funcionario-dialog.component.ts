@@ -7,24 +7,29 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { provideNativeDateAdapter } from '@angular/material/core';
+import { NgxMaskDirective } from 'ngx-mask';
 
 import { Funcionario } from '../../../models/funcionario.model';
 import { DataService } from '../../../services/data.service';
 
 @Component({
   selector: 'app-funcionario-dialog',
-  imports: [CommonModule,
+  standalone: true, 
+  imports: [
+    CommonModule,
     ReactiveFormsModule,
     MatDialogModule,
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    MatDatepickerModule],
+    MatDatepickerModule,
+    NgxMaskDirective
+  ],
   providers: [
     provideNativeDateAdapter()
   ],
   templateUrl: './funcionario-dialog.component.html',
-  styleUrl: './funcionario-dialog.component.scss'
+  styleUrls: ['./funcionario-dialog.component.scss']
 })
 export class FuncionarioDialogComponent implements OnInit {
   form!: FormGroup;
@@ -51,17 +56,13 @@ export class FuncionarioDialogComponent implements OnInit {
     if (this.form.invalid) {
       return;
     }
-
     const formData = this.form.value;
-
     if (this.isEditMode && this.data) {
-
       const updatedFuncionario: Funcionario = { id: this.data.id, ...formData };
       this.dataService.updateFuncionario(updatedFuncionario).subscribe(() => {
         this.dialogRef.close(true);
       });
     } else {
-
       this.dataService.addFuncionario(formData).subscribe(() => {
         this.dialogRef.close(true);
       });
@@ -72,9 +73,4 @@ export class FuncionarioDialogComponent implements OnInit {
     this.dialogRef.close();
   }
 }
-
-
-
-
-
 

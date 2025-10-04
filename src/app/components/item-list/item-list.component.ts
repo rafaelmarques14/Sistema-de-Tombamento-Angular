@@ -23,9 +23,8 @@ import { ItemDialogComponent } from '../dialogs/item-dialog/item-dialog.componen
     MatButtonModule,
     MatDialogModule,
     MatFormFieldModule,
-    MatSelectModule,
-    ItemDialogComponent,
-  ],
+    MatSelectModule
+],
   templateUrl: './item-list.component.html',
   styleUrls: ['./item-list.component.css']
 })

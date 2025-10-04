@@ -1,67 +1,7 @@
 {
-  "itens": [
-    {
-      "id": "c584",
-      "nomeDoItem": "Notebook Dell",
-      "marca": "Dell",
-      "modelo": "Latitude",
-      "numeroDeTombamento": "DEL-3212",
-      "status": "Em uso",
-      "funcionarioId": "3",
-      "historicoIdAtivo": "2aa4"
-    }
-  ],
-  "funcionarios": [
-    {
-      "id": "1",
-      "nome": "Carlos Pereira",
-      "cpf": "111.222.333-44",
-      "dataNascimento": "1990-05-15T03:00:00.000Z"
-    },
-    {
-      "id": "3",
-      "nome": "Mariana Costa",
-      "cpf": "222.333.444-55",
-      "dataNascimento": "1992-03-30T00:00:00.000Z"
-    }
-  ],
-  "historico": [
-    {
-      "id": "426c",
-      "itemId": "c584",
-      "funcionarioId": "3",
-      "dataInicio": "2025-10-02T02:35:17.226Z",
-      "dataFim": null
-    },
-    {
-      "id": "366b",
-      "itemId": "c584",
-      "funcionarioId": "3",
-      "dataInicio": "2025-10-02T02:35:21.334Z",
-      "dataFim": "2025-10-02T02:35:31.865Z"
-    },
-    {
-      "id": "dd73",
-      "itemId": "c584",
-      "funcionarioId": "1",
-      "dataInicio": "2025-10-02T02:35:42.605Z",
-      "dataFim": "2025-10-02T02:36:00.111Z"
-    },
-    {
-      "id": "354d",
-      "itemId": "c584",
-      "funcionarioId": "3",
-      "dataInicio": "2025-10-03T23:34:37.656Z",
-      "dataFim": null
-    },
-    {
-      "id": "2aa4",
-      "itemId": "c584",
-      "funcionarioId": "3",
-      "dataInicio": "2025-10-03T23:34:40.238Z",
-      "dataFim": null
-    }
-  ],
+  "itens": [],
+  "funcionarios": [],
+  "historico": [],
   "users": [
     {
       "id": "1",

@@ -6,8 +6,43 @@
   </button>
 </div>
 
+<div class="filter-bar" [formGroup]="filterForm">
+  <mat-form-field appearance="outline">
+    <mat-label>Filtrar por Funcionário</mat-label>
+    <mat-select formControlName="funcionarioId">
+      <mat-option *ngFor="let func of funcionarios" [value]="func.id">
+        {{ func.nome }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  
+  <mat-form-field appearance="outline" class="filter-type-select">
+    <mat-label>Tipo de Data</mat-label>
+    <mat-select formControlName="filterType">
+      <mat-option value="day">Dia</mat-option>
+      <mat-option value="month">Mês</mat-option>
+      <mat-option value="year">Ano</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Filtrar por Data</mat-label>
+    <input matInput [matDatepicker]="picker" formControlName="data">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker 
+                  [startView]="datepickerStartView"
+                  (monthSelected)="monthSelectedHandler($event, picker)"
+                  (yearSelected)="yearSelectedHandler($event, picker)">
+    </mat-datepicker>
+  </mat-form-field>
+
+  <button mat-stroked-button (click)="limparFiltros()">
+    Limpar Filtros
+  </button>
+</div>
+
 <div class="table-container mat-elevation-z8">
-  <table mat-table [dataSource]="historicoCompleto$">
+  <table mat-table [dataSource]="historicoFiltrado$">
     <ng-container matColumnDef="item">
       <th mat-header-cell *matHeaderCellDef> Item </th>
       <td mat-cell *matCellDef="let element"> {{element.nomeItem}} </td>
@@ -31,3 +66,4 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
 </div>
+

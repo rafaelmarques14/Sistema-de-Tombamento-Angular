@@ -12,7 +12,7 @@ import { RouterModule } from '@angular/router';
 @Component({
   selector: 'app-root',
   imports: [RouterOutlet, CommonModule, MatToolbarModule, RouterModule,
-    MatIconModule, MatTabsModule, DashboardComponent, ItemListComponent, FuncionarioListComponent],
+    MatIconModule, MatTabsModule],
     template: '<router-outlet></router-outlet>',
   styleUrl: './app.scss'
 })
