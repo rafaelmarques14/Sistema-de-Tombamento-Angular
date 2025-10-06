@@ -1,13 +1,7 @@
 {
-  "itens": [
-    
-  ],
-  "funcionarios": [
-    
-  ],
-  "historico": [
-   
-  ],
+  "itens": [],
+  "funcionarios": [],
+  "historico": [],
   "users": [
     {
       "id": "1",
