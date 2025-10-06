@@ -169,7 +169,7 @@ export class HistoricoCompletoComponent implements OnInit, OnDestroy {
     const pageWidth = doc.internal.pageSize.getWidth();
     
     if (this.logoBase64) {
-      doc.addImage(this.logoBase64, 'PNG', 14, 15, 50, 0);
+      doc.addImage(this.logoBase64, 'PNG', 14, 8, 50, 0);
     }
     
     doc.setFontSize(16);
