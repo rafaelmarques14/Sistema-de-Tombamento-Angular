@@ -79,7 +79,7 @@ export class HistoricoCompletoComponent implements OnInit, OnDestroy {
   }
 
   private carregarLogo(): void {
-    const logoPath = '../../../assets/TombaRAS_logo-preto.png';
+    const logoPath = '../../../assets/Elo_TI.png';
     this.http.get(logoPath, { responseType: 'blob' }).subscribe(blob => {
       const reader = new FileReader();
       reader.onloadend = () => {
@@ -189,7 +189,7 @@ export class HistoricoCompletoComponent implements OnInit, OnDestroy {
       theme: 'grid'
     });
 
-    doc.save('historico-tombaras.pdf');
+    doc.save('historico-elo_ti.pdf');
   }
 }
 
